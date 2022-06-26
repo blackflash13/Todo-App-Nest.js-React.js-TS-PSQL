@@ -15,6 +15,6 @@ import { TodoModule } from './todos/todo.module';
       load: [databaseConfig],
     }),
     TodoModule,
-  ], 
+  ],
 })
 export class AppModule {}
