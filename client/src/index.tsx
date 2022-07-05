@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
-import { rootReducer } from "./components/redux/rootReducer";
+import { rootReducer } from "./redux/rootReducer";
 import App from "./App";
 
 const store = createStore(rootReducer);

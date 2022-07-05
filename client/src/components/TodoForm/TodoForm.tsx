@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTodo } from "../redux/actions";
-import { ITodoReducer } from "../types/types";
+import { createTodo } from "../../redux/actions";
+import { ITodoReducer } from "../../types/types";
 
 export const TodoForm = () => {
   const [title, setTitle] = useState("");
@@ -14,13 +14,7 @@ export const TodoForm = () => {
       return;
     }
 
-    const todoObject = {
-      title,
-      done: false
-    }
-
-    //@ts-ignore
-    dispatch(createTodo(todoObject));
+    dispatch(createTodo(title));
     setTitle("");
   };
 
