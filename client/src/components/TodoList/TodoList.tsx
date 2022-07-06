@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { TodoItem } from "../TodoItem/TodoItem";
-import { ITodoReducer } from "../types/types";
+import { ITodoReducer } from "../../types/types";
 import './style.css'
 
 export const TodoList = () => {

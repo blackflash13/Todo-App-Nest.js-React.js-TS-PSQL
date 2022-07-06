@@ -1,4 +1,4 @@
-import { call, Effect, put } from "redux-saga/effects";
+import { call, Effect, put, takeEvery } from "redux-saga/effects";
 import { TodoApi } from "../../api";
 import { ICreateAction, ITodo, ITodoActionTypes } from "../../types/types";
 
@@ -13,10 +13,14 @@ function* sagaCreateTodo(action: ICreateAction): Generator<Effect, void> {
     const todo = yield call(TodoApi.createTodo, todoObject);
 
     yield put({
-      type: ITodoActionTypes.CREATE_TODO,
-      payload: todoObject,
+      type: ITodoActionTypes.CREATE_TODO_SUCCESS,
+      payload: todo,
     });
   } catch (err) {
     console.log("Error", err);
   }
+}
+
+export function* sagaWatcher(): Generator<Effect, void> {
+  yield takeEvery(ITodoActionTypes.CREATE_TODO, sagaCreateTodo);
 }

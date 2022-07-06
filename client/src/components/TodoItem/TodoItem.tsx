@@ -1,4 +1,4 @@
-import { ITodo } from "../types/types";
+import { ITodo } from "../../types/types";
 
 interface ITodoProps {
   todo: ITodo;

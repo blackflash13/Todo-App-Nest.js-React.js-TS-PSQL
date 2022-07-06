@@ -7,4 +7,8 @@ export class TodoApi {
 
     return res.data;
   }
+
+  static async deleteTodo(id: string): Promise<void> {
+    return axios.delete(`http://localhost:3001/api/todos/${id}`);
+  }
 }
