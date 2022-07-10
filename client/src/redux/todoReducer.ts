@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { ITodoAction, ITodoActionTypes, ITodoState } from "../types/types";
 
 export const initialState = {
@@ -14,6 +15,34 @@ export const todoReducer = (
 
     case ITodoActionTypes.CREATE_TODO_SUCCESS:
       return { todos: [...state.todos, action.payload] };
+
+    case ITodoActionTypes.COMPLETE_TODO_SUCCESS: {
+      const newTodos = [...state.todos];
+      const completeIndex = state.todos.findIndex(
+        (todo) => todo.id === action.payload
+      );
+
+      if (completeIndex === -1) {
+        return state;
+      }
+
+      newTodos[completeIndex].done = !newTodos[completeIndex].done;
+      return { ...state, todos: newTodos };
+    }
+
+    case ITodoActionTypes.UPDATE_TODO_SUCCESS: {
+      const newTodos = [...state.todos];
+      const completeIndex = state.todos.findIndex(
+        (todo) => todo.id === action.id
+      );
+
+      if (completeIndex === -1) {
+        return state;
+      }
+
+      newTodos[completeIndex] = action.payload;
+      return { ...state, todos: newTodos };
+    }
 
     case ITodoActionTypes.DELETE_TODO_SUCCESS:
       return {

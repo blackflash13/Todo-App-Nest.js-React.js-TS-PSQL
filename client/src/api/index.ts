@@ -13,6 +13,19 @@ export class TodoApi {
     return res.data;
   }
 
+  static async completeTodo(todo: Partial<ITodo>): Promise<void> {
+    axios.patch(`http://localhost:3001/api/todos/${todo.id}`, todo);
+  }
+
+  static async updateTodo(todo: Partial<ITodo>): Promise<ITodo> {
+    const res = await axios.patch(
+      `http://localhost:3001/api/todos/${todo.id}`,
+      todo
+    );
+
+    return res.data[1][0];
+  }
+
   static async deleteTodo(id: string): Promise<void> {
     return axios.delete(`http://localhost:3001/api/todos/${id}`);
   }

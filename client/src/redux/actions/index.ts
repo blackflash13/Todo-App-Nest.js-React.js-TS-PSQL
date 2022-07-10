@@ -13,6 +13,27 @@ export const createTodo = (payload: string) => {
   };
 };
 
+export const completeTodo = (id: string, done: boolean) => {
+  return {
+    type: ITodoActionTypes.COMPLETE_TODO,
+    payload: {
+      id,
+      done,
+    },
+  };
+};
+
+export const updateTodo = (id: string, title: string, done: boolean) => {
+  return {
+    type: ITodoActionTypes.UPDATE_TODO,
+    payload: {
+      id,
+      title,
+      done,
+    },
+  };
+};
+
 export const deleteTodo = (payload: string) => {
   return {
     type: ITodoActionTypes.DELETE_TODO,
