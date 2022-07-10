@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ITodo } from "../../types/types";
 import "./style.css";
 
@@ -6,26 +6,47 @@ interface ITodoProps {
   todo: ITodo;
   deleteTodo: (arg0: string) => void;
   doneTodo: (arg0: string, arg1: boolean) => void;
+  changeTodo: (arg0: string, arg1: string, arg2: boolean) => void;
 }
 
-export const TodoItem = ({ todo, deleteTodo, doneTodo }: ITodoProps) => {
-  const [isTodoEdit, setTodoEdit] = useState(false);
+export const TodoItem = ({
+  todo,
+  deleteTodo,
+  doneTodo,
+  changeTodo,
+}: ITodoProps) => {
+  const [isTodoEdit, setIsTodoEdit] = useState(false);
   const [newTitle, setNewTitle] = useState("");
-  const handleDelete = () => deleteTodo(todo.id);
+
+  const handleSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      changeTodo(todo.id, newTitle, todo.done);
+      setIsTodoEdit(!isTodoEdit);
+    }
+  };
+  const handleTodoEdit = () => setIsTodoEdit(!isTodoEdit);
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {console.log(event.target.value);setNewTitle(event.target.value)};
   const handleComplete = () => doneTodo(todo.id, !todo.done);
+  const handleDelete = () => deleteTodo(todo.id);
 
   return (
     <li
       className={`list-group-item d-flex justify-content-between
     ${todo.done ? "list-group-item-success" : ""}`}
     >
-      <div className="">
-        <span className={`${todo.done ? "title-completed" : ""}`}>
-          {todo.title}
-        </span>
+      <div className="" onKeyPress={handleSubmit}>
+        {isTodoEdit ? (
+          <input type="text" className="form-control" onChange={handleTitleChange} />
+        ) : (
+          <span className={`${todo.done ? "title-completed" : ""}`}>
+            {todo.title}
+          </span>
+        )}
       </div>
       <div>
-        <button className="btn btn-primary me-2">Update</button>
+        <button className="btn btn-primary me-2" onClick={handleTodoEdit}>
+          Update
+        </button>
         <button className="btn btn-success me-2" onClick={handleComplete}>
           {todo.done ? "Uncompleted" : "Completed"}
         </button>

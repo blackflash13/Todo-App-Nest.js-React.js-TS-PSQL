@@ -8,6 +8,7 @@ import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getTodos());
   }, []);

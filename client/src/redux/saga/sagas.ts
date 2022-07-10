@@ -73,7 +73,7 @@ function* sagaUpdateTodo(
     const todo = yield call(TodoApi.updateTodo, todoObject);
 
     yield put({
-      type: ITodoActionTypes.COMPLETE_TODO_SUCCESS,
+      type: ITodoActionTypes.UPDATE_TODO_SUCCESS,
       payload: todo,
       id: action.payload.id,
     });

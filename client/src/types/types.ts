@@ -27,7 +27,7 @@ export interface ITodoReducer {
   todoReducer: ITodoState;
 }
 
-export interface IEditTodo {
+export interface IUpdateTodo {
   id: string;
   title: string;
   done: boolean;
@@ -50,7 +50,7 @@ export interface ICompleteAction<T> {
 
 export interface IUpdateAction {
   type: ITodoActionTypes.UPDATE_TODO_SUCCESS | ITodoActionTypes.UPDATE_TODO;
-  payload: IEditTodo;
+  payload: IUpdateTodo;
   id: string;
 }
 
