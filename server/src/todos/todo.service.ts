@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Todo } from './models/todo.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateTodo } from './dto/create-todo.dto';
@@ -45,6 +45,9 @@ export class TodoService {
 
   async remove(id: string) {
     const todo = await this.findOne(id);
+
+    if (!todo) throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
+
     await todo.destroy();
     return todo;
   }
