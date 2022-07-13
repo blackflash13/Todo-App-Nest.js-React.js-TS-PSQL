@@ -25,7 +25,9 @@ export const TodoItem = ({
     }
   };
   const handleTodoEdit = () => setIsTodoEdit(!isTodoEdit);
-  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {console.log(event.target.value);setNewTitle(event.target.value)};
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
   const handleComplete = () => doneTodo(todo.id, !todo.done);
   const handleDelete = () => deleteTodo(todo.id);
 
@@ -36,7 +38,11 @@ export const TodoItem = ({
     >
       <div className="" onKeyPress={handleSubmit}>
         {isTodoEdit ? (
-          <input type="text" className="form-control" onChange={handleTitleChange} />
+          <input
+            type="text"
+            className="form-control"
+            onChange={handleTitleChange}
+          />
         ) : (
           <span className={`${todo.done ? "title-completed" : ""}`}>
             {todo.title}
@@ -44,13 +50,19 @@ export const TodoItem = ({
         )}
       </div>
       <div>
-        <button className="btn btn-primary me-2" onClick={handleTodoEdit}>
+        <button
+          className="btn btn-outline-primary me-2"
+          onClick={handleTodoEdit}
+        >
           Update
         </button>
-        <button className="btn btn-success me-2" onClick={handleComplete}>
+        <button
+          className="btn btn-outline-success me-2"
+          onClick={handleComplete}
+        >
           {todo.done ? "Uncompleted" : "Completed"}
         </button>
-        <button className="btn btn-danger" onClick={handleDelete}>
+        <button className="btn btn-outline-danger" onClick={handleDelete}>
           Delete
         </button>
       </div>

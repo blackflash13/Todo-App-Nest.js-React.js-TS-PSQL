@@ -1,3 +1,4 @@
+import { resolve } from "path";
 import { call, Effect, put, takeEvery } from "redux-saga/effects";
 import { TodoApi } from "../../api";
 import {
@@ -8,6 +9,10 @@ import {
   ITodoActionTypes,
   IUpdateAction,
 } from "../../types/types";
+import { hideAlert, showAlert } from "../actions";
+
+const delay = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time));
 
 // функція генератор
 function* sagaGetTodos(): Generator<Effect, void, ITodo[]> {
@@ -36,8 +41,15 @@ function* sagaCreateTodo(action: ICreateAction): Generator<Effect, void> {
       type: ITodoActionTypes.CREATE_TODO_SUCCESS,
       payload: todo,
     });
+
+    yield put(showAlert("Task successfully added", "success"));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   } catch (err) {
     console.log("Error", err);
+    yield put(showAlert("Can't create task :(", "danger"));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   }
 }
 

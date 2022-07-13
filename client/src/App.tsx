@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getTodos());
   }, []);
@@ -21,9 +21,11 @@ function App() {
           <div className="container pt-2">
             <TodoForm />
 
-            <div className="col-md-12 mt-4">
-              <h3>My tasks</h3>
-              <TodoList />
+            <div className="row">
+              <div className="col-md-12 mt-4">
+                <h3>My tasks</h3>
+                <TodoList />
+              </div>
             </div>
           </div>
         </section>

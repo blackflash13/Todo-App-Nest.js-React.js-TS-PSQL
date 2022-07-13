@@ -40,3 +40,17 @@ export const deleteTodo = (payload: string) => {
     payload,
   };
 };
+
+export const showAlert = (text: string, status: string) => {
+  return {
+    type: ITodoActionTypes.SHOW_ALERT,
+    payload: text,
+    status,
+  };
+};
+
+export const hideAlert = () => {
+  return {
+    type: ITodoActionTypes.HIDE_ALERT,
+  };
+};
