@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { constant } from "../../constant";
 import { createTodo, showAlert } from "../../redux/actions";
 import { IAlertReducer } from "../../types/types";
 import { Alert } from "../Alert/Alert";
@@ -13,7 +14,14 @@ export const TodoForm = () => {
     event.preventDefault();
 
     if (!title.trim()) {
-      dispatch(showAlert("Title can't be blank", "warning"));
+      dispatch(showAlert("Title can't be blank", constant.status.warning));
+      return;
+    }
+
+    if (title.trim().length <= 3) {
+      dispatch(
+        showAlert("Title length could min 3 symbols", constant.status.warning)
+      );
       return;
     }
 
@@ -47,7 +55,7 @@ export const TodoForm = () => {
           />
         </div>
         <div className="col-md-1">
-          <button className="btn btn-success">Create</button>
+          <button className="btn btn-outline-success">Create</button>
         </div>
       </form>
     </>

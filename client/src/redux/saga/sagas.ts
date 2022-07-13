@@ -1,6 +1,7 @@
 import { resolve } from "path";
 import { call, Effect, put, takeEvery } from "redux-saga/effects";
 import { TodoApi } from "../../api";
+import { constant } from "../../constant";
 import {
   ICompleteAction,
   ICreateAction,
@@ -23,8 +24,10 @@ function* sagaGetTodos(): Generator<Effect, void, ITodo[]> {
       type: ITodoActionTypes.GET_TODOS_SUCCESS,
       payload: todos,
     });
-  } catch (err) {
-    console.log("Error", err);
+  } catch (error) {
+    yield put(showAlert(`${error}`, constant.status.danger));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   }
 }
 
@@ -42,12 +45,12 @@ function* sagaCreateTodo(action: ICreateAction): Generator<Effect, void> {
       payload: todo,
     });
 
-    yield put(showAlert("Task successfully added", "success"));
+    yield put(showAlert("Task successfully added", constant.status.success));
     yield call(delay, 3000);
     yield put(hideAlert());
-  } catch (err) {
-    console.log("Error", err);
-    yield put(showAlert("Can't create task :(", "danger"));
+  } catch (error) {
+    console.log("Error", error);
+    yield put(showAlert(`${error}`, constant.status.danger));
     yield call(delay, 3000);
     yield put(hideAlert());
   }
@@ -68,8 +71,21 @@ function* sagaCompleteTodo(
       type: ITodoActionTypes.COMPLETE_TODO_SUCCESS,
       payload: action.payload.id,
     });
-  } catch (err) {
-    console.log("Error", err);
+
+    yield put(
+      showAlert(
+        `Note about the completion of the task is has been ${
+          action.payload.done ? "placed" : "removed"
+        }  `,
+        constant.status.success
+      )
+    );
+    yield call(delay, 3000);
+    yield put(hideAlert());
+  } catch (error) {
+    yield put(showAlert(`${error}`, constant.status.danger));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   }
 }
 function* sagaUpdateTodo(
@@ -89,8 +105,10 @@ function* sagaUpdateTodo(
       payload: todo,
       id: action.payload.id,
     });
-  } catch (err) {
-    console.log("Error", err);
+  } catch (error) {
+    yield put(showAlert(`${error}`, constant.status.danger));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   }
 }
 
@@ -102,8 +120,14 @@ function* sagaDeleteTodo(action: IDeleteAction): Generator<Effect, void> {
       type: ITodoActionTypes.DELETE_TODO_SUCCESS,
       payload: action.payload,
     });
-  } catch (err) {
-    console.log("Error", err);
+
+    yield put(showAlert("Task successfully deleted", constant.status.danger));
+    yield call(delay, 3000);
+    yield put(hideAlert());
+  } catch (error) {
+    yield put(showAlert(`${error}`, constant.status.danger));
+    yield call(delay, 3000);
+    yield put(hideAlert());
   }
 }
 
