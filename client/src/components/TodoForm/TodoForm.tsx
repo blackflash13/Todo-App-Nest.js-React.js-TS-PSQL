@@ -40,7 +40,7 @@ export const TodoForm = () => {
           {alertState.alertText.length > 0 && <Alert props={alertState} />}
         </div>
 
-        <div className="col-md-12">
+        <div className="col-md-12 mt-3">
           <label htmlFor="case" className="form-label">
             <h5>Enter the case name</h5>
           </label>

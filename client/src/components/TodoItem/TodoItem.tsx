@@ -26,14 +26,14 @@ export const TodoItem = ({
   };
   const handleTodoEdit = () => setIsTodoEdit(!isTodoEdit);
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.target.value);
+    setNewTitle(event.target.value); 
   };
   const handleComplete = () => doneTodo(todo.id, !todo.done);
   const handleDelete = () => deleteTodo(todo.id);
 
   return (
     <li
-      className={`list-group-item d-flex justify-content-between
+      className={`todo-item list-group-item d-flex justify-content-between
     ${todo.done ? "list-group-item-success" : ""}`}
     >
       <div className="" onKeyPress={handleSubmit}>
