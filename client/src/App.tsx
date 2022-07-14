@@ -18,7 +18,7 @@ function App() {
       <Header />
       <main>
         <section>
-          <div className="App container pt-2">
+          <div className="Appcontainer pt-2">
             <TodoForm />
 
             <div className="row">
